@@ -1,0 +1,240 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans&family=Edu+NSW+ACT+Foundation&display=swap');
+
+
+body{
+    background: #333d47;
+    text-align: center;
+}
+
+.container{
+    padding: 10px;
+   
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    margin: 20px;
+    display: inline-block;
+    border-radius: 10px;
+}
+
+
+
+td {
+    border: 1px solid #ffffff;
+    width: 40px;
+    height: 40px;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+}
+
+table{
+    border-spacing: 0px;
+    border: 0px solid   #fff;
+}
+
+
+#tableContainer{
+    overflow: hidden;
+    overflow-y: hidden;
+}
+
+
+body{
+    overflow: hidden;
+}
+
+
+
+.main_col{
+    border-left: 4px solid  #fff;
+}
+
+.main_row{
+    border-top: 4px solid  #fff;
+}
+
+
+.main_col_end{
+    border-right: 4px solid  #fff;
+}
+
+p{
+    font-weight: 400;
+    margin: 5px;
+    color: white;
+}
+
+.pClass{
+ 
+color: #f1960e;
+}
+
+
+.pClassWhite{
+    color: #fff;
+}
+
+
+
+.floating { 
+    animation-name: floating;
+    animation-duration: 3s;
+    animation-iteration-count: infinite;
+    animation-timing-function: ease-in-out;
+    margin-left: 30px;
+    margin-top: 5px;
+}
+ 
+@keyframes floating {
+    0% { transform: translate(0,  0px); }
+    50%  { transform: translate(0, 15px); }
+    100%   { transform: translate(0, -0px); }   
+}
+
+
+
+.btn {
+    padding: 10px 25px;
+    font-family: "Roboto", sans-serif;
+    font-weight: 500;
+    background: transparent;
+    outline: none !important;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    display: inline-block;
+  }
+  
+  .btn {
+    border: 1px solid rgba(54, 54, 54, 0.6);
+    font-weight: 600;
+    outline: none;
+    border-radius: 50px;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    height: 45px;
+    width: 130px;
+    opacity: 1;
+  
+  
+  }
+  
+  
+  
+  
+
+
+
+  .btn41-43 {
+    padding: 10px 25px;
+    font-family: "Roboto", sans-serif;
+    font-weight: 500;
+    background: transparent;
+    outline: none !important;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    display: inline-block;
+  }
+  
+  .btn-41 {
+    border: 2px solid rgb(255, 255, 255);
+    z-index: 1;
+    color: white;
+  }
+  
+  .btn-41:after {
+    position: absolute;
+    content: "";
+    width: 0;
+    height: 100%;
+    top: 0;
+    left: 0;
+    direction: rtl;
+    z-index: -1;
+    background: rgb(255, 255, 255);
+    transition: all 0.3s ease;
+  }
+  
+  
+
+
+
+  .disabled {
+    border: 1px solid #999999;
+    background-color: #cccccc;
+    color: #666666;
+  
+  }
+
+
+  .invisible{
+    display:none ;
+  }
+
+
+  .loadBtn{
+    border:2px solid #f1960e;
+    color: #f1960e;
+  }
+
+
+  .startBtn{
+    border:2px solid #0ac64f;
+    color: #0ac64f;
+  }
+
+
+  .stopBtn{
+    border:2px solid #B71C1C;
+    color: #B71C1C;
+  }
+
+
+/* spinner */
+.lds-ripple {
+  display: inline-block;
+  position: relative;
+  width: 80px;
+  height: 80px;
+}
+.lds-ripple div {
+  position: absolute;
+  border: 4px solid #fff;
+  opacity: 1;
+  border-radius: 50%;
+  animation: lds-ripple 1s cubic-bezier(0, 0.2, 0.8, 1) infinite;
+}
+.lds-ripple div:nth-child(2) {
+  animation-delay: -0.5s;
+}
+@keyframes lds-ripple {
+  0% {
+    top: 36px;
+    left: 36px;
+    width: 0;
+    height: 0;
+    opacity: 0;
+  }
+  4.9% {
+    top: 36px;
+    left: 36px;
+    width: 0;
+    height: 0;
+    opacity: 0;
+  }
+  5% {
+    top: 36px;
+    left: 36px;
+    width: 0;
+    height: 0;
+    opacity: 1;
+  }
+  100% {
+    top: 0px;
+    left: 0px;
+    width: 72px;
+    height: 72px;
+    opacity: 0;
+  }
+}
