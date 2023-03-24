@@ -1,47 +1,36 @@
+//buttons init
+
 var loadDataBtn = document.getElementById("loadDataBtn");
 var solveDataBtn = document.getElementById("solveDataBtn");
 var stopSolveBtn = document.getElementById("stopSolveBtn");
+solveDataBtn.classList.add("invisible");
+stopSolveBtn.classList.add("invisible");
+var displayValue = "";
+
+
+
+//ripple init
 var ripple = document.getElementById("ripple");
 ripple.style.display="none";
 
-
-
-
-solveDataBtn.classList.add("invisible");
-stopSolveBtn.classList.add("invisible");
-
-
-
+//variables initialization
+var SolveBoardStopper = 1;
 var values = "";
+
+
+
+//generating grid basic structure
 var gridValues = new Array(9);
 for (var i = 0; i < gridValues.length; i++) {
   gridValues[i] = [];
 }
 
-var SolveBoardStopper = 1;
-
-//setup grid values from api data
-
-function setUpGrid(vals) {
-  for (var i = 0; i < 9; i++) {
-    for (var j = 0; j < 9; j++) {
-      console.log(vals.charAt(i));
-      gridValues[i][j] = parseInt(vals.charAt(i * 9 + j));
-    }
-  }
-
-  addDisplayValuesGrid();
-}
-
-$("#tableContainer").append(generateGrid2(9, 9));
-
-//generating grid basic structure
-function generateGrid2(rows, cols) {
+function generateGrid2() {
   var grid = "<div class='container '><div class='container_min'><table>";
-  for (row = 0; row <= rows - 1; row++) {
+  for (row = 0; row <9; row++) {
     grid += "<tr>";
 
-    for (col = 0; col <= cols - 1; col++) {
+    for (col = 0; col <9; col++) {
       displayValue = "";
 
 
@@ -54,6 +43,41 @@ function generateGrid2(rows, cols) {
 
   return grid;
 }
+
+
+
+
+
+
+//setup grid values from api data
+
+function setUpGrid(vals) {
+  for (var i = 0; i < 9; i++) {
+    for (var j = 0; j < 9; j++) {
+      gridValues[i][j] = parseInt(vals.charAt(i * 9 + j));
+    }
+  }
+
+  addDisplayValuesGrid();
+}
+
+
+
+
+
+
+
+
+//calling grid generation function
+$("#tableContainer").append(generateGrid2());
+
+
+
+
+
+
+
+
 
 //load data from API server
 //also invoke input of starting values
@@ -73,7 +97,6 @@ function loadData() {
     .then((response) => {
       values = response.vals;
       setUpGrid(values);
-      console.log(response.vals);
       solveDataBtn.classList.remove("invisible");
       loadDataBtn.classList.add("invisible");
       ripple.style.display="none";
@@ -84,26 +107,22 @@ function loadData() {
     .catch((err) => console.error(err));
 }
 
-loadDataBtn.addEventListener("click", function (e) {
-  loadData();
-});
 
-const GRID_SIZE = 9;
-const BOX_SIZE = 3;
 
-let count = 0;
 
+
+//sleep function to delay process 
 function sleep(milliseconds) {
   return new Promise((resolve) => setTimeout(resolve, milliseconds));
 }
 
-var displayValue = "";
 
 
 
-var row_count = 9;
-var col_count = 9;
 
+
+
+//adding initial values to the grid from data provided by API 
 function addDisplayValuesGrid() {
   for (var row = 0; row < 9; row++) {
     for (var col = 0; col < 9; col++) {
@@ -121,50 +140,29 @@ function addDisplayValuesGrid() {
   }
 }
 
-$("td").click(function () {
-  var index = $("td").index(this);
-  var row = Math.floor(index / col_count) + 1;
-  var col = (index % col_count) + 1;
-  $("span").text("That was row " + row + " and col " + col);
-  if (ob == 1) {
-    $(this).css("background-color", "black");
-  } else {
-    $(this).css("background-color", "red");
-  }
-});
+
 
 function solveSudoku(board) {
-  console.log("\nInput ..\n");
-  printBoard(board);
 
   if (solveBoard(board)) {
-    console.log("\nSolved !!\n");
-    printBoard(board);
   } else {
     console.log("\nUnsolvable !!");
   }
 }
 
-function printBoard(board) {
-  for (let row = 0; row < GRID_SIZE; row++) {
-    var str = "";
-    if (row % 3 == 0 && row != 0) {
-      console.log("------------");
-    }
-    for (let column = 0; column < GRID_SIZE; column++) {
-      if (column % 3 == 0 && column != 0) {
-        // console.log("|");
-        str += "|";
-      }
-      //console.log(board[row][column].toString());
-      str += board[row][column].toString() + " ";
-    }
-    console.log(str);
-  }
-}
+
+
+
+
+
+
+
+
+
+// solving sudoku logic 
 
 function isNumberInRow(board, number, row) {
-  for (let i = 0; i < GRID_SIZE; i++) {
+  for (let i = 0; i < 9; i++) {
     if (board[row][i] == number) {
       return true;
     }
@@ -173,7 +171,7 @@ function isNumberInRow(board, number, row) {
 }
 
 function isNumberInColumn(board, number, column) {
-  for (let i = 0; i < GRID_SIZE; i++) {
+  for (let i = 0; i < 9; i++) {
     if (board[i][column] == number) {
       return true;
     }
@@ -182,11 +180,11 @@ function isNumberInColumn(board, number, column) {
 }
 
 function isNumberInBox(board, number, row, column) {
-  const initialBoxRow = row - (row % BOX_SIZE);
-  const initialBoxColumn = column - (column % BOX_SIZE);
+  const initialBoxRow = row - (row % 3);
+  const initialBoxColumn = column - (column % 3);
 
-  for (let i = initialBoxRow; i < initialBoxRow + BOX_SIZE; i++) {
-    for (let j = initialBoxColumn; j < initialBoxColumn + BOX_SIZE; j++) {
+  for (let i = initialBoxRow; i < initialBoxRow + 3; i++) {
+    for (let j = initialBoxColumn; j < initialBoxColumn + 3; j++) {
       if (board[i][j] == number) {
         return true;
       }
@@ -203,20 +201,20 @@ function isValidPlacement(board, number, row, column) {
   );
 }
 
+
+
 async function solveBoard(board) {
 
-  console.log(SolveBoardStopper);
 
   if (SolveBoardStopper == 0) {
     return;
   }
 
-  console.log(count++);
 
-  for (let row = 0; row < GRID_SIZE; row++) {
-    for (let column = 0; column < GRID_SIZE; column++) {
+  for (let row = 0; row < 9; row++) {
+    for (let column = 0; column < 9; column++) {
       if (board[row][column] == 0) {
-        for (let numberToTry = 1; numberToTry <= GRID_SIZE; numberToTry++) {
+        for (let numberToTry = 1; numberToTry <= 9; numberToTry++) {
           if (isValidPlacement(board, numberToTry, row, column)) {
             board[row][column] = numberToTry;
             document.getElementById("text" + row + "" + column).innerHTML =
@@ -245,6 +243,21 @@ async function solveBoard(board) {
   }
   return true;
 }
+
+
+
+
+
+
+
+
+
+
+//on click listeners for buttons
+loadDataBtn.addEventListener("click", function (e) {
+  loadData();
+});
+
 
 solveDataBtn.addEventListener("click", function (e) {
   if (values == "") return;
